@@ -1,12 +1,12 @@
 package com.u1fukui.bbsapi.controller
 
-import com.u1fukui.bbsapi.model.BbsThread
-import com.u1fukui.bbsapi.model.User
-import org.springframework.web.bind.annotation.RestController
-import org.springframework.web.bind.annotation.RequestParam
+import com.u1fukui.bbsapi.entity.BbsThread
+import com.u1fukui.bbsapi.entity.User
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
-import java.util.Date
+import org.springframework.web.bind.annotation.RequestParam
+import org.springframework.web.bind.annotation.RestController
+import java.time.LocalDateTime
 
 @RestController
 class ThreadListController {
@@ -24,12 +24,12 @@ class ThreadListController {
     ): List<BbsThread> {
         return ((lastId + 1)..(lastId + 20)).map {
             BbsThread(
-                it.toLong(),
                 "カテゴリスレッド$it",
-                User(it.toLong(), "作者$it"),
+                User("作者$it", id = it.toLong()),
                 0,
-                Date(),
-                Date()
+                LocalDateTime.now(),
+                LocalDateTime.now(),
+                it.toLong()
             )
         }
     }
