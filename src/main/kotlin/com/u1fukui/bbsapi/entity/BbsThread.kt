@@ -1,5 +1,6 @@
 package com.u1fukui.bbsapi.entity
 
+import com.u1fukui.bbsapi.request.ThreadRegistrationRequest
 import java.io.Serializable
 import java.time.LocalDateTime
 import javax.persistence.Column
@@ -31,4 +32,10 @@ data class BbsThread(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     var id: Long = 0
-) : Serializable
+) : Serializable {
+    constructor(request: ThreadRegistrationRequest, author: User) : this(
+        request.title,
+        request.description,
+        author
+    )
+}

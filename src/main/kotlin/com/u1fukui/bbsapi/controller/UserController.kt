@@ -15,9 +15,7 @@ class UserController(
     private val service: UserService
 ) {
     @PostMapping("/register", consumes = ["application/json"])
-    fun registerUser(
-        @RequestBody request: UserRegistrationRequest
-    ): ResponseEntity<String> {
+    fun registerUser(@RequestBody request: UserRegistrationRequest): ResponseEntity<String> {
         val user = User(request)
         service.register(user)
         return ResponseEntity.ok("success")

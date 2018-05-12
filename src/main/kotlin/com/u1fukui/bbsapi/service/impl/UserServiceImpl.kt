@@ -10,6 +10,11 @@ import org.springframework.transaction.annotation.Transactional
 class UserServiceImpl(
     private val repository: UserRepository
 ) : UserService {
+    @Transactional(readOnly = true)
+    override fun find(userId: Long): User? {
+        return repository.findById(userId).orElseGet(null)
+    }
+
     @Transactional(timeout = 10)
     override fun register(user: User) {
         repository.save(user)
