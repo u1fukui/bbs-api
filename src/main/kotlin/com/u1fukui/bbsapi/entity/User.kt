@@ -11,7 +11,7 @@ import javax.persistence.Id
 import javax.persistence.Table
 
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 data class User(
     @Column(name = "name", nullable = false)
     var name: String,
@@ -21,7 +21,7 @@ data class User(
     var updatedAt: LocalDateTime = LocalDateTime.now(),
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id", nullable = false)
+    @Column(name = "id", nullable = false)
     var id: Long = 0
 ) : Serializable {
     constructor(request: UserRegistrationRequest) : this(request.name)

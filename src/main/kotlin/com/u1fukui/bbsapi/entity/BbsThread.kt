@@ -12,7 +12,7 @@ import javax.persistence.ManyToOne
 import javax.persistence.Table
 
 @Entity
-@Table(name = "thread")
+@Table(name = "threads")
 data class BbsThread(
     @Column(name = "title", nullable = false)
     var title: String,
@@ -27,6 +27,6 @@ data class BbsThread(
     var updatedAt: LocalDateTime = LocalDateTime.now(),
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "thread_id", nullable = false)
+    @Column(name = "id", nullable = false)
     var id: Long = 0
 ) : Serializable
