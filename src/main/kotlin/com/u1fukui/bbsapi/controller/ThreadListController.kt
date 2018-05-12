@@ -25,6 +25,7 @@ class ThreadListController {
         return ((lastId + 1)..(lastId + 20)).map {
             BbsThread(
                 "カテゴリスレッド$it",
+                "本文",
                 User("作者$it", id = it.toLong()),
                 0,
                 LocalDateTime.now(),

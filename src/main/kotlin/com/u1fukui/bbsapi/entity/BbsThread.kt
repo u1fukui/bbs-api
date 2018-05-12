@@ -16,6 +16,8 @@ import javax.persistence.Table
 data class BbsThread(
     @Column(name = "title", nullable = false)
     var title: String,
+    @Column(name = "description", nullable = false)
+    var description: String,
     @ManyToOne
     @JoinColumn(name = "author_id", nullable = false)
     var author: User,
