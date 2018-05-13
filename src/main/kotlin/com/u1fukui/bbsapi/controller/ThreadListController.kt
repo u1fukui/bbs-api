@@ -2,8 +2,8 @@ package com.u1fukui.bbsapi.controller
 
 import com.u1fukui.bbsapi.entity.BbsThread
 import com.u1fukui.bbsapi.entity.Category
-import com.u1fukui.bbsapi.entity.User
 import com.u1fukui.bbsapi.request.ThreadRegistrationRequest
+import com.u1fukui.bbsapi.service.CategoryService
 import com.u1fukui.bbsapi.service.ThreadService
 import com.u1fukui.bbsapi.service.UserService
 import org.springframework.http.ResponseEntity
@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
-import java.time.LocalDateTime
 
 @RestController
 class ThreadListController(
     private val userService: UserService,
-    private val threadService: ThreadService
+    private val threadService: ThreadService,
+    private val categoryService: CategoryService
 ) {
     @PostMapping("/thread/register")
     fun registerThread(@RequestBody request: ThreadRegistrationRequest): ResponseEntity<String> {
@@ -34,25 +34,10 @@ class ThreadListController(
     fun threadList(
         @RequestParam(value = "category") categoryId: Long,
         @RequestParam(value = "lastId", defaultValue = "0") lastId: Int
-    ): List<BbsThread> {
-        return createDebugThreadList(categoryId, lastId)
-    }
+    ): ResponseEntity<List<BbsThread>> {
+        val category = categoryService.findById(categoryId)
+                ?: return ResponseEntity.badRequest().build()
 
-    private fun createDebugThreadList(
-        categoryId: Long,
-        lastId: Int
-    ): List<BbsThread> {
-        return ((lastId + 1)..(lastId + 20)).map {
-            BbsThread(
-                "カテゴリスレッド$it",
-                "本文",
-                Category(categoryId),
-                User("作者$it", id = it.toLong()),
-                0,
-                LocalDateTime.now(),
-                LocalDateTime.now(),
-                it.toLong()
-            )
-        }
+        return ResponseEntity.ok(category.threads)
     }
 }

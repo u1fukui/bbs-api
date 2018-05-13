@@ -1,5 +1,6 @@
 package com.u1fukui.bbsapi.entity
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import java.io.Serializable
 import java.time.LocalDateTime
 import javax.persistence.Column
@@ -7,6 +8,7 @@ import javax.persistence.Entity
 import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
 import javax.persistence.Id
+import javax.persistence.OneToMany
 import javax.persistence.Table
 
 @Entity
@@ -25,7 +27,10 @@ data class Category(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    var id: Long = 0
+    var id: Long = 0,
+    @OneToMany(mappedBy = "category")
+    @JsonIgnoreProperties("category")
+    var threads: List<BbsThread> = emptyList()
 ) : Serializable {
     constructor(categoryId: Long) : this(id = categoryId)
 }
