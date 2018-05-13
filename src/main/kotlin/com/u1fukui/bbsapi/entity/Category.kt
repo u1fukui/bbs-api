@@ -14,6 +14,10 @@ import javax.persistence.Table
 data class Category(
     @Column(name = "name", nullable = false)
     var name: String = "",
+    @Column(name = "order_num", nullable = false)
+    var order: Int = 0,
+    @Column(name = "disabled", nullable = false)
+    var isDisabled: Boolean = false,
     @Column(name = "created_at", nullable = false)
     var createdAt: LocalDateTime = LocalDateTime.now(),
     @Column(name = "updated_at", nullable = false)

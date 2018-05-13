@@ -1,11 +1,13 @@
 CREATE TABLE IF NOT EXISTS categories (
   id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(10) NOT NULL,
+  order_num INT NOT NULL,
+  disabled BOOLEAN NOT NULL DEFAULT FALSE,
   created_at TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
   updated_at TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3)
 )
 ENGINE = INNODB,
 DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO categories (name) values ('生活');
-INSERT INTO categories (name) values ('テレビ');
+INSERT INTO categories (name, order_num) values ('生活', 1000);
+INSERT INTO categories (name, order_num) values ('テレビ', 2000);
