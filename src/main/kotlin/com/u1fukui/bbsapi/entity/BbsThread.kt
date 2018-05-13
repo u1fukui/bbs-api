@@ -20,6 +20,9 @@ data class BbsThread(
     @Column(name = "description", nullable = false)
     var description: String,
     @ManyToOne
+    @JoinColumn(name = "category_id", nullable = false)
+    var category: Category,
+    @ManyToOne
     @JoinColumn(name = "author_id", nullable = false)
     var author: User,
     @Column(name = "comment_count", nullable = false)
@@ -33,9 +36,14 @@ data class BbsThread(
     @Column(name = "id", nullable = false)
     var id: Long = 0
 ) : Serializable {
-    constructor(request: ThreadRegistrationRequest, author: User) : this(
+    constructor(
+        request: ThreadRegistrationRequest,
+        category: Category,
+        author: User
+    ) : this(
         request.title,
         request.description,
+        category,
         author
     )
 }
