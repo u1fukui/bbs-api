@@ -9,3 +9,5 @@
 *.ipr
 /out/
 
+### My Project Settings
+/log/

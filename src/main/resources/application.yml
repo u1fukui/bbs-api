@@ -1,0 +1,44 @@
+spring:
+  application:
+    name: bbs-api
+  output:
+    ansi:
+      enabled: detect
+  profiles:
+    active: dev
+  datasource:
+    url: jdbc:mysql://localhost:3306/bbs?useSSL=false
+    username: u1
+    password: password
+    driver-class-name: com.mysql.jdbc.Driver
+    hikari:
+      connection-test-query: select 1
+      connection-timeout: 10000
+      maximum-pool-size: 2
+      minimum-idle: 2
+  jpa:
+    open-in-view: true
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+        use_sql_comments: true
+        generate_statistics: true
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+      write-durations-as-timestamps: true
+
+server:
+  servlet:
+    context-path: /app
+  port: 8080
+
+logging:
+  file: log/bbs-api.log
+  level:
+    root: INFO
+    org.springframework: INFO
+    org.hibernate: INFO
+    org.hibernate.SQL: DEBUG
+    com.u1fukui.bbs: DEBUG
