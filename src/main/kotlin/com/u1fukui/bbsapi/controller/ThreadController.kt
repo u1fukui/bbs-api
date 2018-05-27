@@ -14,14 +14,14 @@ import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-class ThreadListController(
+class ThreadController(
     private val userService: UserService,
     private val threadService: ThreadService,
     private val categoryService: CategoryService
 ) {
     @PostMapping("/thread/register")
     fun registerThread(@RequestBody request: ThreadRegistrationRequest): ResponseEntity<String> {
-        val category = Category(request.categoryId)
+        val category = Category(id = request.categoryId)
         val user = userService.find(request.authorId)
                 ?: return ResponseEntity.badRequest().build()
 
@@ -31,7 +31,7 @@ class ThreadListController(
     }
 
     @GetMapping("/threads")
-    fun threadList(
+    fun getThreadList(
         @RequestParam(value = "category") categoryId: Long,
         @RequestParam(value = "lastId", defaultValue = "0") lastId: Int
     ): ResponseEntity<List<BbsThread>> {

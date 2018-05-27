@@ -1,7 +1,6 @@
 package com.u1fukui.bbsapi.entity
 
 import com.fasterxml.jackson.annotation.JsonIgnore
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import java.io.Serializable
 import java.time.LocalDateTime
 import javax.persistence.Column
@@ -18,25 +17,22 @@ data class Category(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    var id: Long = 0,
+    var id: Long? = null,
     @Column(name = "name", nullable = false)
-    var name: String = "",
+    var name: String? = null,
     @Column(name = "order_num", nullable = false)
     @JsonIgnore
-    var order: Int = 0,
+    var order: Int? = null,
     @Column(name = "disabled", nullable = false)
     @JsonIgnore
-    var disabled: Boolean = false,
+    var disabled: Boolean? = null,
     @Column(name = "created_at", nullable = false)
     @JsonIgnore
-    var createdAt: LocalDateTime = LocalDateTime.now(),
+    var createdAt: LocalDateTime? = null,
     @Column(name = "updated_at", nullable = false)
     @JsonIgnore
-    var updatedAt: LocalDateTime = LocalDateTime.now(),
+    var updatedAt: LocalDateTime? = null,
     @OneToMany(mappedBy = "category")
-    @JsonIgnoreProperties("category")
+    @JsonIgnore
     var threads: List<BbsThread> = emptyList()
-) : Serializable {
-
-    constructor(categoryId: Long) : this(id = categoryId)
-}
+) : Serializable
