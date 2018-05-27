@@ -14,6 +14,10 @@ import javax.persistence.Table
 @Entity
 @Table(name = "users")
 data class User(
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
+    var id: Long = 0,
     @Column(name = "name", nullable = false)
     var name: String,
     @Column(name = "created_at", nullable = false)
@@ -21,11 +25,7 @@ data class User(
     var createdAt: LocalDateTime = LocalDateTime.now(),
     @Column(name = "updated_at", nullable = false)
     @JsonIgnore
-    var updatedAt: LocalDateTime = LocalDateTime.now(),
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    var id: Long = 0
+    var updatedAt: LocalDateTime = LocalDateTime.now()
 ) : Serializable {
-    constructor(request: UserRegistrationRequest) : this(request.name)
+    constructor(request: UserRegistrationRequest) : this(name = request.name)
 }

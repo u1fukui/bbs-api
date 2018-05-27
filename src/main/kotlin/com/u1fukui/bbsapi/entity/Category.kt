@@ -15,6 +15,10 @@ import javax.persistence.Table
 @Entity
 @Table(name = "categories")
 data class Category(
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
+    var id: Long = 0,
     @Column(name = "name", nullable = false)
     var name: String = "",
     @Column(name = "order_num", nullable = false)
@@ -29,13 +33,10 @@ data class Category(
     @Column(name = "updated_at", nullable = false)
     @JsonIgnore
     var updatedAt: LocalDateTime = LocalDateTime.now(),
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    var id: Long = 0,
     @OneToMany(mappedBy = "category")
     @JsonIgnoreProperties("category")
     var threads: List<BbsThread> = emptyList()
 ) : Serializable {
+
     constructor(categoryId: Long) : this(id = categoryId)
 }

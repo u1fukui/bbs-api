@@ -17,6 +17,10 @@ import javax.persistence.Table
 @Entity
 @Table(name = "threads")
 data class BbsThread(
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
+    var id: Long = 0,
     @Column(name = "title", nullable = false)
     var title: String,
     @Column(name = "description", nullable = false)
@@ -34,20 +38,16 @@ data class BbsThread(
     var createdAt: LocalDateTime = LocalDateTime.now(),
     @Column(name = "updated_at", nullable = false)
     @JsonIgnore
-    var updatedAt: LocalDateTime = LocalDateTime.now(),
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    var id: Long = 0
+    var updatedAt: LocalDateTime = LocalDateTime.now()
 ) : Serializable {
     constructor(
         request: ThreadRegistrationRequest,
         category: Category,
         author: User
     ) : this(
-        request.title,
-        request.description,
-        category,
-        author
+        title = request.title,
+        description = request.description,
+        category = category,
+        author = author
     )
 }
