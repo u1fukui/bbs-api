@@ -31,7 +31,7 @@ class ThreadController(
     }
 
     @GetMapping("/threads")
-    fun threadList(
+    fun getThreadList(
         @RequestParam(value = "category") categoryId: Long,
         @RequestParam(value = "lastId", defaultValue = "0") lastId: Int
     ): ResponseEntity<List<BbsThread>> {
