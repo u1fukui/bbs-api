@@ -1,5 +1,6 @@
 package com.u1fukui.bbsapi.entity
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import java.io.Serializable
 import java.time.LocalDateTime
@@ -17,12 +18,16 @@ data class Category(
     @Column(name = "name", nullable = false)
     var name: String = "",
     @Column(name = "order_num", nullable = false)
+    @JsonIgnore
     var order: Int = 0,
     @Column(name = "disabled", nullable = false)
-    var isDisabled: Boolean = false,
+    @JsonIgnore
+    var disabled: Boolean = false,
     @Column(name = "created_at", nullable = false)
+    @JsonIgnore
     var createdAt: LocalDateTime = LocalDateTime.now(),
     @Column(name = "updated_at", nullable = false)
+    @JsonIgnore
     var updatedAt: LocalDateTime = LocalDateTime.now(),
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

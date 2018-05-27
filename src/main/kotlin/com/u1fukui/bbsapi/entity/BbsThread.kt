@@ -1,5 +1,7 @@
 package com.u1fukui.bbsapi.entity
 
+import com.fasterxml.jackson.annotation.JsonIgnore
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.u1fukui.bbsapi.request.ThreadRegistrationRequest
 import java.io.Serializable
 import java.time.LocalDateTime
@@ -21,6 +23,7 @@ data class BbsThread(
     var description: String,
     @ManyToOne
     @JoinColumn(name = "category_id", nullable = false)
+    @JsonIgnoreProperties("threads")
     var category: Category,
     @ManyToOne
     @JoinColumn(name = "author_id", nullable = false)
@@ -30,6 +33,7 @@ data class BbsThread(
     @Column(name = "created_at", nullable = false)
     var createdAt: LocalDateTime = LocalDateTime.now(),
     @Column(name = "updated_at", nullable = false)
+    @JsonIgnore
     var updatedAt: LocalDateTime = LocalDateTime.now(),
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
