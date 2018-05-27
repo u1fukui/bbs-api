@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-class ThreadListController(
+class ThreadController(
     private val userService: UserService,
     private val threadService: ThreadService,
     private val categoryService: CategoryService
