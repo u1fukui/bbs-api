@@ -21,7 +21,7 @@ class ThreadListController(
 ) {
     @PostMapping("/thread/register")
     fun registerThread(@RequestBody request: ThreadRegistrationRequest): ResponseEntity<String> {
-        val category = Category(request.categoryId)
+        val category = Category(id = request.categoryId)
         val user = userService.find(request.authorId)
                 ?: return ResponseEntity.badRequest().build()
 
