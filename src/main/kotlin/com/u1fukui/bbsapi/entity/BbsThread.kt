@@ -3,6 +3,7 @@ package com.u1fukui.bbsapi.entity
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.u1fukui.bbsapi.request.ThreadRegistrationRequest
+import org.hibernate.annotations.NamedQuery
 import java.io.Serializable
 import java.time.LocalDateTime
 import javax.persistence.Column
@@ -16,6 +17,8 @@ import javax.persistence.Table
 
 @Entity
 @Table(name = "threads")
+@NamedQuery(name = "findByCategoryId",
+    query = "SELECT t FROM BbsThread t WHERE t.category.id = :categoryId AND t.id > :lastId ORDER BY t.id DESC")
 data class BbsThread(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -3,7 +3,6 @@ package com.u1fukui.bbsapi.controller
 import com.u1fukui.bbsapi.entity.BbsThread
 import com.u1fukui.bbsapi.entity.Category
 import com.u1fukui.bbsapi.request.ThreadRegistrationRequest
-import com.u1fukui.bbsapi.service.CategoryService
 import com.u1fukui.bbsapi.service.ThreadService
 import com.u1fukui.bbsapi.service.UserService
 import org.springframework.http.ResponseEntity
@@ -16,8 +15,7 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 class ThreadController(
     private val userService: UserService,
-    private val threadService: ThreadService,
-    private val categoryService: CategoryService
+    private val threadService: ThreadService
 ) {
     @PostMapping("/thread/register")
     fun registerThread(@RequestBody request: ThreadRegistrationRequest): ResponseEntity<String> {
@@ -33,11 +31,9 @@ class ThreadController(
     @GetMapping("/threads")
     fun getThreadList(
         @RequestParam(value = "category") categoryId: Long,
-        @RequestParam(value = "lastId", defaultValue = "0") lastId: Int
+        @RequestParam(value = "lastId", defaultValue = "0") lastId: Long
     ): ResponseEntity<List<BbsThread>> {
-        val category = categoryService.findById(categoryId)
-                ?: return ResponseEntity.badRequest().build()
-
-        return ResponseEntity.ok(category.threads)
+        val list = threadService.findByCategoryId(categoryId, lastId)
+        return ResponseEntity.ok(list)
     }
 }
